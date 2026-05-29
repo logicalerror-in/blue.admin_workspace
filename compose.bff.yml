@@ -1,0 +1,16 @@
+services:
+  admin-bff:
+    image: node:22.21.1-bookworm-slim
+    container_name: blue-admin-bff-local
+    working_dir: /app
+    command: sh -c "npm ci && npm run start:dev"
+    environment:
+      NODE_ENV: development
+      ADMIN_BFF_PORT: ${ADMIN_BFF_PORT:-12000}
+    ports:
+      - "${ADMIN_BFF_HOST_PORT:-12000}:12000"
+    volumes:
+      - ../blue.admin_bff:/app
+      - admin_bff_node_modules:/app/node_modules
+    networks:
+      - admin_local

@@ -1,0 +1,19 @@
+services:
+  admin-front:
+    image: node:22.21.1-bookworm-slim
+    container_name: blue-admin-front-local
+    working_dir: /app
+    command: sh -c "npm ci && npm run dev"
+    environment:
+      NODE_ENV: development
+      VITE_API_BASE_PATH: ${VITE_API_BASE_PATH:-/api}
+      VITE_ADMIN_BFF_PROXY_TARGET: http://admin-bff:12000
+    ports:
+      - "${ADMIN_FRONT_HOST_PORT:-11000}:11000"
+    volumes:
+      - ../blue.admin_front:/app
+      - admin_front_node_modules:/app/node_modules
+    depends_on:
+      - admin-bff
+    networks:
+      - admin_local

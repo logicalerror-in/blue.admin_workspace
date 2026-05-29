@@ -1,0 +1,13 @@
+name: blue-admin-local
+
+include:
+  - compose.bff.yml
+  - compose.front.yml
+
+networks:
+  admin_local:
+    name: blue_admin_local
+
+volumes:
+  admin_front_node_modules:
+  admin_bff_node_modules:
